@@ -10,19 +10,26 @@ const tt = "123";
 export default function Home() {
   const [ttt, setTtt] = useState(String);
   useEffect(() => {
-    async function fetchData() {
-      const data = await fetch(`api/getDataset`, {
+    async function fetchdata() {
+      const dataset = await fetch(`api/getDataset`, {
         method: "GET",
+      })
+        .then((res) => res.json())
+        .then((text) => {
+          return text;
+        });
+
+      const filteredList = await fetch(`api/getFilteredList`, {
+        method: "POST",
+        body: JSON.stringify(dataset),
       })
         .then((res) => res.text())
         .then((text) => {
-          console.log(text);
           setTtt(text);
-          return text;
         });
     }
 
-    fetchData();
+    fetchdata();
   });
 
   return (
