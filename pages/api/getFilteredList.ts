@@ -29,6 +29,7 @@ const accessFeatures = [
   "None",
   "Accessible Communication",
   "Accessible Emergency Evacuation Plans",
+  "Accessible Facilities",
   "Accessible Meetings and Events",
   "Accessible Rest Areas",
   "Accessible Transportation",
@@ -43,7 +44,7 @@ const accessFeatures = [
   "Mental Health Support",
   "Mentoring and Support Programs",
   "Reasonable Accommodations",
-  "Training and Sensitivity ProgramsAccessible Facilities"
+  "Training and Sensitivity Programs"
 ];
 
 // const expLevels = [
@@ -160,8 +161,8 @@ function getSkillScore(jobskills: string, userskills: string) {
 4 - temp
 5 - volunteer
 6 - other */
-function getJobTypeScore(jobtype: number, usertype: number) {
-  return (jobtype == usertype) ? 10 : -300;
+function getJobTypeScore(jobtype: string, usertype: string) {
+  return (jobtype === usertype) ? 10 : -300;
 }
 
 /*

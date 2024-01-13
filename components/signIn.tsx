@@ -173,79 +173,71 @@ function UserInfoCollectionForm() {
         <Label htmlFor="accessibility-features">Accessibility Features</Label>
         <select onChange={(e) => handleChange("accessibilityFeatures1", e.target.value)}>
           <option value="None">None</option>
-          <option value="Accessible Websites And Intranet">websitesAndIntranet</option>
-          <option value="Assistive Technology">assistiveTechnology</option>
-          <option value="Braille and Large Print Materials">brailleDisplay</option>
-          <option value="Magnifier">magnifier</option>
-          <option value="Speech Recognition">speechRecognition</option>
+          <option value="Accessible Communication">Accessible Communication</option>
+          <option value="Accessible Emergency Evacuation Plans">Accessible Emergency Evacuation Plans</option>
+          <option value="Accessible Meetings And Events">Accessible Meetings and Events</option>
+          <option value="Accessible Rest Areas">Accessible Rest Areas</option>
+          <option value="Accessible Transportation">Accessible Transportation</option>
+          <option value="Accessible Websites and Intranet">Websites and Intranet</option>
+          <option value="Assistance Animals">Assistance Animals</option>
+          <option value="Assistive Technology">Assistive Technology</option>
+          <option value="Braille and Large Print Materials">Braille Display</option>
+          <option value="Clear Communication">Clear Communication</option>
+          <option value="Ergonomic Workstations">Ergonomic Workstations</option>
+          <option value="Feedback Mechanisms">Feedback Mechanisms</option>
+          <option value="Flexible Work Arrangements">Flexible Work Arrangements</option>
+          <option value="Mental Health Support">Mental Health Support</option>
+          <option value="Mentoring and Support Programs">Mentoring And Support</option>
           <option value="Reasonable Accommodations">Reasonable Accommodations</option>
-          <option value="Emergency Evacuation Plans">emergencyEvacuationPlans</option>
-          <option value="Accessible Communication">clearCommunication</option>
-          <option value="Mental Health Support">mentalHealthSupport</option>
-          <option value="Feedback Mechanisms">feedbackMechanisms</option>
-          <option value="Flexible Work Arrangements">flexibleWorkArrangements</option>
-          <option value="Assistance Animals">assistanceAnimals</option>
-          <option value="Meetings And Events">meetingsAndEvents</option>
-          <option value="Rest Areas">restAreas</option>
-          <option value="Communication">communication</option>
-          <option value="Mentoring And Support">mentoringAndSupport</option>
-          <option value="Ergonomic Workstations">ergonomicWorkstations</option>
-          <option value="Training And Sensitivity">trainingAndSensitivity</option>
-          <option value="Facilities">facilities</option>
+          <option value="Training and Sensitivity Programs">Training and Sensitivity</option>
         </select>
       </div>
 
       <div>
         <Label htmlFor="accessibility-features">Accessibility Features</Label>
         <select onChange={(e) => handleChange("accessibilityFeatures2", e.target.value)}>
-          <option value="none">none</option>
-          <option value="screenReader">screenReader</option>
-          <option value="brailleDisplay">brailleDisplay</option>
-          <option value="magnifier">magnifier</option>
-          <option value="speechRecognition">speechRecognition</option>
+          <option value="None">None</option>
+          <option value="Accessible Communication">Accessible Communication</option>
+          <option value="Accessible Emergency Evacuation Plans">Accessible Emergency Evacuation Plans</option>
+          <option value="Accessible Meetings And Events">Accessible Meetings and Events</option>
+          <option value="Accessible Rest Areas">Accessible Rest Areas</option>
+          <option value="Accessible Transportation">Accessible Transportation</option>
+          <option value="Accessible Websites and Intranet">Websites and Intranet</option>
+          <option value="Assistance Animals">Assistance Animals</option>
+          <option value="Assistive Technology">Assistive Technology</option>
+          <option value="Braille and Large Print Materials">Braille Display</option>
+          <option value="Clear Communication">Clear Communication</option>
+          <option value="Ergonomic Workstations">Ergonomic Workstations</option>
+          <option value="Feedback Mechanisms">Feedback Mechanisms</option>
+          <option value="Flexible Work Arrangements">Flexible Work Arrangements</option>
+          <option value="Mental Health Support">Mental Health Support</option>
+          <option value="Mentoring and Support Programs">Mentoring And Support</option>
           <option value="Reasonable Accommodations">Reasonable Accommodations</option>
-          <option value="emergencyEvacuationPlans">emergencyEvacuationPlans</option>
-          <option value="clearCommunication">clearCommunication</option>
-          <option value="assistiveTechnology">assistiveTechnology</option>
-          <option value="mentalHealthSupport">mentalHealthSupport</option>
-          <option value="feedbackMechanisms">feedbackMechanisms</option>
-          <option value="flexibleWorkArrangements">flexibleWorkArrangements</option>
-          <option value="assistanceAnimals">assistanceAnimals</option>
-          <option value="meetingsAndEvents">meetingsAndEvents</option>
-          <option value="restAreas">restAreas</option>
-          <option value="communication">communication</option>
-          <option value="mentoringAndSupport">mentoringAndSupport</option>
-          <option value="websitesAndIntranet">websitesAndIntranet</option>
-          <option value="ergonomicWorkstations">ergonomicWorkstations</option>
-          <option value="trainingAndSensitivity">trainingAndSensitivity</option>
-          <option value="facilities">facilities</option>
+          <option value="Training and Sensitivity Programs">Training and Sensitivity</option>
         </select>
       </div>
 
       <div>
         <Label htmlFor="accessibility-features">Accessibility Features</Label>
         <select onChange={(e) => handleChange("accessibilityFeatures3", e.target.value)}>
-          <option value="none">none</option>
-          <option value="screenReader">screenReader</option>
-          <option value="brailleDisplay">brailleDisplay</option>
-          <option value="magnifier">magnifier</option>
-          <option value="speechRecognition">speechRecognition</option>
+          <option value="None">None</option>
+          <option value="Accessible Communication">Accessible Communication</option>
+          <option value="Accessible Emergency Evacuation Plans">Accessible Emergency Evacuation Plans</option>
+          <option value="Accessible Meetings And Events">Accessible Meetings and Events</option>
+          <option value="Accessible Rest Areas">Accessible Rest Areas</option>
+          <option value="Accessible Transportation">Accessible Transportation</option>
+          <option value="Accessible Websites and Intranet">Websites and Intranet</option>
+          <option value="Assistance Animals">Assistance Animals</option>
+          <option value="Assistive Technology">Assistive Technology</option>
+          <option value="Braille and Large Print Materials">Braille Display</option>
+          <option value="Clear Communication">Clear Communication</option>
+          <option value="Ergonomic Workstations">Ergonomic Workstations</option>
+          <option value="Feedback Mechanisms">Feedback Mechanisms</option>
+          <option value="Flexible Work Arrangements">Flexible Work Arrangements</option>
+          <option value="Mental Health Support">Mental Health Support</option>
+          <option value="Mentoring and Support Programs">Mentoring And Support</option>
           <option value="Reasonable Accommodations">Reasonable Accommodations</option>
-          <option value="emergencyEvacuationPlans">emergencyEvacuationPlans</option>
-          <option value="clearCommunication">clearCommunication</option>
-          <option value="assistiveTechnology">assistiveTechnology</option>
-          <option value="mentalHealthSupport">mentalHealthSupport</option>
-          <option value="feedbackMechanisms">feedbackMechanisms</option>
-          <option value="flexibleWorkArrangements">flexibleWorkArrangements</option>
-          <option value="assistanceAnimals">assistanceAnimals</option>
-          <option value="meetingsAndEvents">meetingsAndEvents</option>
-          <option value="restAreas">restAreas</option>
-          <option value="communication">communication</option>
-          <option value="mentoringAndSupport">mentoringAndSupport</option>
-          <option value="websitesAndIntranet">websitesAndIntranet</option>
-          <option value="ergonomicWorkstations">ergonomicWorkstations</option>
-          <option value="trainingAndSensitivity">trainingAndSensitivity</option>
-          <option value="facilities">facilities</option>
+          <option value="Training and Sensitivity Programs">Training and Sensitivity</option>
         </select>
       </div>
 
