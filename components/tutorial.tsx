@@ -38,9 +38,9 @@ function UserInfoCollectionForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 bg-white dark:bg-black p-6 rounded-md"
+      className="space-y-6 bg-gray-100 dark:bg-gray-800 p-6 rounded-md"
     >
-      <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+      <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-300">
         User Information
       </h2>
       <div>
@@ -61,7 +61,7 @@ function UserInfoCollectionForm() {
           <School2 className="mr-2 h-4 w-4 inline" />
           Education
         </Label>
-        <Select>
+        <Select multiple>
           <SelectTrigger>
             <SelectValue placeholder="Select Education" />
           </SelectTrigger>
@@ -161,7 +161,7 @@ function UserInfoCollectionForm() {
       <div>
         <Label htmlFor="type">
           <User2 className="mr-2 h-4 w-4 inline" />
-          Type
+          Job Type
         </Label>
         <Select>
           <SelectTrigger>
@@ -254,7 +254,7 @@ function UserInfoCollectionForm() {
 
       <div>
         <Label htmlFor="accessibility-features">Accessibility Features</Label>
-        <Select>
+        <Select multiple>
           <SelectTrigger>
             <SelectValue placeholder="Select Accessibility Features" />
           </SelectTrigger>
@@ -300,9 +300,8 @@ function UserInfoCollectionForm() {
           </SelectContent>
         </Select>
       </div>
-
       <div>
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Search</Button>
       </div>
     </form>
   );
