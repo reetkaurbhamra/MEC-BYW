@@ -33,7 +33,7 @@ export default function Home() {
 
       const userData = await fetch(`api/getFilteredList`, {
         method: "POST",
-        body: JSON.stringify({ jobs: dataset, user: JSON(getCookie("user")) }),
+        body: JSON.stringify({ jobs: dataset, user: getCookie("user") }),
       })
         .then((res) => res.json())
         .then((json) => {
