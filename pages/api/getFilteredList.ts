@@ -56,8 +56,20 @@ const accessFeatures = [
 // ]
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-  const jobs = req.body;
+  const jobs = req.body.jobs;
+  const user = req.body.user;
   const filteredList = [];
+  console.log(user);
+  
+
+  const locationMult = 1.2;
+  const experienceMult = 0.8;
+  const jobTypeMult = 0.8;
+  const accessMult = 0.8;
+  const skillMult = 0.8;
+  const salaryMult = 0.8;
+
+  
 
   for (const key in jobs) {
     const job = jobs[key];
@@ -84,7 +96,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
     filteredList.push([key, score]);
   }
 
-  res.status(200).json({ list: [{ name: "123" }, { name: "ccom" }] });
+  res.status(200).json({ name: "testes" });
 }
 
 

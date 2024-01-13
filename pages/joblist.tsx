@@ -34,7 +34,7 @@ export default function Home() {
       })
         .then((res) => res.json())
         .then((json) => {
-          // setFilteredList(json.list); // SCUFFED
+          setFilteredList(json.list); // SCUFFED
         });
     }
 

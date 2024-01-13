@@ -52,9 +52,9 @@ function UserInfoCollectionForm() {
         </Label>
         <select onChange={(e) => handleChange("education", e.target.value)}>
           <option value="select">Select</option>
-          <option value="highSchool">HighSchool</option>
+          <option value="highSchool">High School</option>
           <option value="bachelor">Bachelor</option>
-          <option value="master">Master</option>
+          <option value="master">Masters</option>
           <option value="phd">PHD</option>
         </select>
       </div>
@@ -66,7 +66,7 @@ function UserInfoCollectionForm() {
         </Label>
         <select onChange={(e) => handleChange("experienceLevel", e.target.value)}>
           <option value="select">Select</option>
-          <option value="associate">associate</option>
+          <option value="Associate">associate</option>
           <option value="director">director</option>
           <option value="entrylevel">entrylevel</option>
           <option value="executive">executive</option>
@@ -172,27 +172,26 @@ function UserInfoCollectionForm() {
       <div>
         <Label htmlFor="accessibility-features">Accessibility Features</Label>
         <select onChange={(e) => handleChange("accessibilityFeatures1", e.target.value)}>
-          <option value="none">none</option>
-          <option value="screenReader">screenReader</option>
-          <option value="brailleDisplay">brailleDisplay</option>
-          <option value="magnifier">magnifier</option>
-          <option value="speechRecognition">speechRecognition</option>
+          <option value="None">None</option>
+          <option value="Accessible Websites And Intranet">websitesAndIntranet</option>
+          <option value="Assistive Technology">assistiveTechnology</option>
+          <option value="Braille and Large Print Materials">brailleDisplay</option>
+          <option value="Magnifier">magnifier</option>
+          <option value="Speech Recognition">speechRecognition</option>
           <option value="Reasonable Accommodations">Reasonable Accommodations</option>
-          <option value="emergencyEvacuationPlans">emergencyEvacuationPlans</option>
-          <option value="clearCommunication">clearCommunication</option>
-          <option value="assistiveTechnology">assistiveTechnology</option>
-          <option value="mentalHealthSupport">mentalHealthSupport</option>
-          <option value="feedbackMechanisms">feedbackMechanisms</option>
-          <option value="flexibleWorkArrangements">flexibleWorkArrangements</option>
-          <option value="assistanceAnimals">assistanceAnimals</option>
-          <option value="meetingsAndEvents">meetingsAndEvents</option>
-          <option value="restAreas">restAreas</option>
-          <option value="communication">communication</option>
-          <option value="mentoringAndSupport">mentoringAndSupport</option>
-          <option value="websitesAndIntranet">websitesAndIntranet</option>
-          <option value="ergonomicWorkstations">ergonomicWorkstations</option>
-          <option value="trainingAndSensitivity">trainingAndSensitivity</option>
-          <option value="facilities">facilities</option>
+          <option value="Emergency Evacuation Plans">emergencyEvacuationPlans</option>
+          <option value="Accessible Communication">clearCommunication</option>
+          <option value="Mental Health Support">mentalHealthSupport</option>
+          <option value="Feedback Mechanisms">feedbackMechanisms</option>
+          <option value="Flexible Work Arrangements">flexibleWorkArrangements</option>
+          <option value="Assistance Animals">assistanceAnimals</option>
+          <option value="Meetings And Events">meetingsAndEvents</option>
+          <option value="Rest Areas">restAreas</option>
+          <option value="Communication">communication</option>
+          <option value="Mentoring And Support">mentoringAndSupport</option>
+          <option value="Ergonomic Workstations">ergonomicWorkstations</option>
+          <option value="Training And Sensitivity">trainingAndSensitivity</option>
+          <option value="Facilities">facilities</option>
         </select>
       </div>
 
