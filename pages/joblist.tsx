@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 const tt = "123";
 
 export default function Home() {
-  const [ttt, setTtt] = useState(null);
+  const [ttt, setTtt] = useState(String);
   useEffect(() => {
     async function fetchData() {
       const data = await fetch(`api/getDataset`, {
