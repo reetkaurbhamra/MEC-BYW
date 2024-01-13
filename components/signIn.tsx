@@ -67,10 +67,10 @@ function UserInfoCollectionForm() {
         <select onChange={(e) => handleChange("experienceLevel", e.target.value)}>
           <option value="select">Select</option>
           <option value="Associate">associate</option>
-          <option value="director">director</option>
-          <option value="entrylevel">entrylevel</option>
-          <option value="executive">executive</option>
-          <option value="internship">internship</option>
+          <option value="Director">director</option>
+          <option value="Entry level">entrylevel</option>
+          <option value="Executive">executive</option>
+          <option value="Internship">internship</option>
           <option value="Mid-Senior level">Mid-Senior level</option>
         </select>
       </div>
@@ -108,13 +108,13 @@ function UserInfoCollectionForm() {
         </Label>
         <select onChange={(e) => handleChange("jobType", e.target.value)}>
           <option value="select">Select</option>
-          <option value="full-time">full-time</option>
-          <option value="part-time">part-time</option>
-          <option value="contract">contract</option>
-          <option value="internship">internship</option>
-          <option value="temporary">temporary</option>
-          <option value="volunteer">volunteer</option>
-          <option value="other">other</option>
+          <option value="Full-time">full-time</option>
+          <option value="Part-time">part-time</option>
+          <option value="Contract">contract</option>
+          <option value="Internship">internship</option>
+          <option value="Temporary">temporary</option>
+          <option value="Volunteer">volunteer</option>
+          <option value="Other">other</option>
         </select>
       </div>
 

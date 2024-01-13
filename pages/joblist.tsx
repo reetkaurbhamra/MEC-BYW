@@ -18,7 +18,7 @@ export default function Home() {
     const parts = value.split(`; ${name}=`);
     console.log("PARTS");
     console.log(parts[0]);
-    console.log(parts[1]);
+    console.log(parts);
     
     
 

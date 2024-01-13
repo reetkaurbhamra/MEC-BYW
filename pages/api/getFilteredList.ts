@@ -1,8 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type Data = {
-  name: string;
-};
 
 // enum AccessFeatures {
 //   None,
@@ -56,7 +53,7 @@ const accessFeatures = [
 //   "Mid-Senior level"
 // ]
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+export default function handler(req: NextApiRequest, res: NextApiResponse<any>) {
   const jobs = req.body.jobs;
   const user = req.body.user;
   const filteredList = [];
@@ -87,6 +84,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
       if (accessVal > 0) jaccess.push(accessVal);
     });
     score += accessMult * getAccessibilityScore(jaccess, accessFeatures.indexOf(user.access1), accessFeatures.indexOf(user.access2), accessFeatures.indexOf(user.access3), accessFeatures.indexOf(user.access4));
+    console.log(job.title);
+    console.log(score);
+    
     if (score < 0) continue;
     score += skillMult * getSkillScore(job.skills, user.skills);
     var jmed = !(job.salmed === null);
@@ -94,10 +94,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
     score += salaryMult * getSalaryScore(job.salmax, job.salmin, job.salmed, user.salary, job.payperiod, jmed, jmax);
 
 
-    filteredList.push([key, score]);
+    filteredList.push(job);
+    if (filteredList.length > 3) break;
   }
 
-  res.status(200).json({ name: "testes" });
+  res.status(200).json({list:filteredList});
 }
 
 
