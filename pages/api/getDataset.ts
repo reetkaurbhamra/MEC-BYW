@@ -24,20 +24,36 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Job>) 
   // });
   // console.log("aaa");
 
-  const csvFilePath = path.resolve(__dirname, '../../../../dataset.csv');
-  
-  const headers = ['Index', 'title', 'desc', 'salmax', 'salmed', 'salmin', 'payperiod', 'type', 'location', 'explevel', 'skills', 'accessft'];
-  
-  const fileContent = fs.readFileSync(csvFilePath, { encoding: 'utf-8' });
-  
-  parse(fileContent, {
-    delimiter: ',',
-    columns: headers,
-  }, (error, result: Job[]) => {
-    if (error) {
-      console.error(error);
+  const csvFilePath = path.resolve(__dirname, "../../../../dataset.csv");
+
+  const headers = [
+    "Index",
+    "title",
+    "desc",
+    "salmax",
+    "salmed",
+    "salmin",
+    "payperiod",
+    "type",
+    "location",
+    "explevel",
+    "skills",
+    "accessft",
+  ];
+
+  const fileContent = fs.readFileSync(csvFilePath, { encoding: "utf-8" });
+
+  parse(
+    fileContent,
+    {
+      delimiter: ",",
+      columns: headers,
+    },
+    (error, result: Job) => {
+      if (error) {
+        console.error(error);
+      }
+      res.status(200).json(result);
     }
-    res.status(200).json(result);
-  });
-  
+  );
 }
