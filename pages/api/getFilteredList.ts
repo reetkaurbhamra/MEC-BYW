@@ -5,8 +5,8 @@ type Data = {
 };
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-  const jobs = req.body.jobs;
-  const filteredList = [{}];
+  const jobs = req.body;
+  const filteredList = [];
 
   for (const key in jobs) {
     const job = jobs[key];

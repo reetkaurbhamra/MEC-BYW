@@ -32,28 +32,19 @@ function UserInfoCollectionForm() {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     console.log(formData);
+    window.open("pages/joblist.tsx");
     // Handle form submission logic
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-6 bg-gray-100 dark:bg-gray-800 p-6 rounded-md"
-    >
-      <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-300">
-        User Information
-      </h2>
+    <form onSubmit={handleSubmit} className="space-y-6 bg-gray-100 dark:bg-gray-800 p-6 rounded-md">
+      <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-300">User Information</h2>
       <div>
         <Label htmlFor="name">
           <User2 className="mr-2 h-4 w-4 inline" />
           Full Name
         </Label>
-        <Input
-          id="name"
-          type="text"
-          placeholder="John Doe"
-          onChange={(e) => handleChange("name", e.target.value)}
-        />
+        <Input id="name" type="text" placeholder="John Doe" onChange={(e) => handleChange("name", e.target.value)} />
       </div>
 
       <div>
@@ -66,28 +57,16 @@ function UserInfoCollectionForm() {
             <SelectValue placeholder="Select Education" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem
-              value="highSchool"
-              onSelect={() => handleChange("education", "High School")}
-            >
+            <SelectItem value="highSchool" onSelect={() => handleChange("education", "High School")}>
               High School
             </SelectItem>
-            <SelectItem
-              value="bachelor"
-              onSelect={() => handleChange("education", "Bachelor")}
-            >
+            <SelectItem value="bachelor" onSelect={() => handleChange("education", "Bachelor")}>
               Bachelor
             </SelectItem>
-            <SelectItem
-              value="master"
-              onSelect={() => handleChange("education", "Master")}
-            >
+            <SelectItem value="master" onSelect={() => handleChange("education", "Master")}>
               Master
             </SelectItem>
-            <SelectItem
-              value="phd"
-              onSelect={() => handleChange("education", "Ph.D")}
-            >
+            <SelectItem value="phd" onSelect={() => handleChange("education", "Ph.D")}>
               Ph.D
             </SelectItem>
           </SelectContent>
@@ -104,28 +83,16 @@ function UserInfoCollectionForm() {
             <SelectValue placeholder="Select Experience Level" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem
-              value="beginner"
-              onSelect={() => handleChange("experienceLevel", "Beginner")}
-            >
+            <SelectItem value="beginner" onSelect={() => handleChange("experienceLevel", "Beginner")}>
               Beginner
             </SelectItem>
-            <SelectItem
-              value="intermediate"
-              onSelect={() => handleChange("experienceLevel", "Intermediate")}
-            >
+            <SelectItem value="intermediate" onSelect={() => handleChange("experienceLevel", "Intermediate")}>
               Intermediate
             </SelectItem>
-            <SelectItem
-              value="advanced"
-              onSelect={() => handleChange("experienceLevel", "Advanced")}
-            >
+            <SelectItem value="advanced" onSelect={() => handleChange("experienceLevel", "Advanced")}>
               Advanced
             </SelectItem>
-            <SelectItem
-              value="expert"
-              onSelect={() => handleChange("experienceLevel", "Expert")}
-            >
+            <SelectItem value="expert" onSelect={() => handleChange("experienceLevel", "Expert")}>
               Expert
             </SelectItem>
           </SelectContent>
@@ -168,46 +135,25 @@ function UserInfoCollectionForm() {
             <SelectValue placeholder="Select Type" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem
-              value="full-time"
-              onSelect={() => handleChange("type", "Full-time")}
-            >
+            <SelectItem value="full-time" onSelect={() => handleChange("type", "Full-time")}>
               Full-time
             </SelectItem>
-            <SelectItem
-              value="part-time"
-              onSelect={() => handleChange("type", "Part-time")}
-            >
+            <SelectItem value="part-time" onSelect={() => handleChange("type", "Part-time")}>
               Part-time
             </SelectItem>
-            <SelectItem
-              value="contract"
-              onSelect={() => handleChange("type", "Contract")}
-            >
+            <SelectItem value="contract" onSelect={() => handleChange("type", "Contract")}>
               Contract
             </SelectItem>
-            <SelectItem
-              value="internship"
-              onSelect={() => handleChange("type", "Internship")}
-            >
+            <SelectItem value="internship" onSelect={() => handleChange("type", "Internship")}>
               Internship
             </SelectItem>
-            <SelectItem
-              value="temporary"
-              onSelect={() => handleChange("type", "Temporary")}
-            >
+            <SelectItem value="temporary" onSelect={() => handleChange("type", "Temporary")}>
               Temporary
             </SelectItem>
-            <SelectItem
-              value="volunteer"
-              onSelect={() => handleChange("type", "Volunteer")}
-            >
+            <SelectItem value="volunteer" onSelect={() => handleChange("type", "Volunteer")}>
               Volunteer
             </SelectItem>
-            <SelectItem
-              value="other"
-              onSelect={() => handleChange("type", "Other")}
-            >
+            <SelectItem value="other" onSelect={() => handleChange("type", "Other")}>
               Other
             </SelectItem>
           </SelectContent>
@@ -272,42 +218,25 @@ function UserInfoCollectionForm() {
             <SelectValue placeholder="Select Accessibility Features" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem
-              value="screenReader"
-              onSelect={() =>
-                handleChange("accessibilityFeatures", "Screen Reader")
-              }
-            >
+            <SelectItem value="screenReader" onSelect={() => handleChange("accessibilityFeatures", "Screen Reader")}>
               Screen Reader
             </SelectItem>
             <SelectItem
               value="brailleDisplay"
-              onSelect={() =>
-                handleChange("accessibilityFeatures", "Braille Display")
-              }
+              onSelect={() => handleChange("accessibilityFeatures", "Braille Display")}
             >
               Braille Display
             </SelectItem>
-            <SelectItem
-              value="magnifier"
-              onSelect={() =>
-                handleChange("accessibilityFeatures", "Magnifier")
-              }
-            >
+            <SelectItem value="magnifier" onSelect={() => handleChange("accessibilityFeatures", "Magnifier")}>
               Magnifier
             </SelectItem>
             <SelectItem
               value="speechRecognition"
-              onSelect={() =>
-                handleChange("accessibilityFeatures", "Speech Recognition")
-              }
+              onSelect={() => handleChange("accessibilityFeatures", "Speech Recognition")}
             >
               Speech Recognition
             </SelectItem>
-            <SelectItem
-              value="none"
-              onSelect={() => handleChange("accessibilityFeatures", "None")}
-            >
+            <SelectItem value="none" onSelect={() => handleChange("accessibilityFeatures", "None")}>
               None
             </SelectItem>
           </SelectContent>
