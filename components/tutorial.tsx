@@ -253,6 +253,19 @@ function UserInfoCollectionForm() {
       </div>
 
       <div>
+        <Label htmlFor="skills">
+          <User2 className="mr-2 h-4 w-4 inline" />
+          Skills
+        </Label>
+        <Input
+          id="skills"
+          type="text"
+          placeholder="Your skills"
+          onChange={(e) => handleChange("skills", e.target.value)}
+        />
+      </div>
+
+      <div>
         <Label htmlFor="accessibility-features">Accessibility Features</Label>
         <Select multiple>
           <SelectTrigger>
