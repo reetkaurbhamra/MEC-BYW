@@ -1,173 +1,311 @@
+// [meta] name: null
+// [meta] description: add another field to the form, phone number
+
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { ChevronLeft } from "lucide-react";
-import { ChevronRight } from "lucide-react";
-import { useEffect } from "react";
-import { useRef } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select } from "@/components/ui/select";
+import { SelectContent } from "@/components/ui/select";
+import { SelectItem } from "@/components/ui/select";
+import { SelectTrigger } from "@/components/ui/select";
+import { SelectValue } from "@/components/ui/select";
+import { Globe2 } from "lucide-react";
+import { School2 } from "lucide-react";
+import { Smartphone } from "lucide-react";
+import { User2 } from "lucide-react";
+import { FormEvent } from "react";
 import { useState } from "react";
+// [meta] name: UserInfoCollectionForm
+// [meta] description: Create an update for the form to collect user information like name, education, country of residence, and phone number
+function UserInfoCollectionForm() {
+  const [formData, setFormData] = useState({
+    name: "",
+    education: "",
+    country: "",
+    phoneNumber: "",
+  });
 
-const tutorialData = [
-  {
-    gif: "https://storage.googleapis.com/tempo-public-images/Preview%20Mode-new.gif",
-    title: "Welcome to Tempo",
-    subtitle: "This tutorial will teach you how to visually edit react code",
-    customJSX: (
-      <div className="flex items-center gap-x-9 my-5 justify-start h-20">
-        <div className="flex flex-col gap-x-9">
-        <p className="text-md text-gray-300 text-2xl">Step 1: Select preview mode to interact with this UI</p>
-        <p className="text-md text-gray-300 text-2xl">Step 2: Click "Get Started" below</p>
-        </div>
-      </div>
-    ),
-  },
-  {
-    gif: "https://storage.googleapis.com/tempo-public-images/styling-panel.gif",
-    title: "Edit Styles",
-    subtitle: "You can edit tailwind code just like a design tool",
-    customJSX: (
-      <div className="flex items-center gap-x-9 my-5 justify-start">
-        <div>
-        <p className="text-md text-gray-300 text-2xl">Step 1: Select edit mode in top-right to edit styles</p>
-        <p className="text-md text-gray-300 text-2xl">Step 2: Change the color of this div ----------></p></div>
-        <div className="w-20 h-20 bg-orange-400"></div>
-      </div>
-    ),
-  },
-  {
-    gif: "https://storage.googleapis.com/tempo-public-images/ai-prompt.gif",
-    title: "Generate With AI",
-    subtitle: "You can generate UIs using text prompts or images",
-    customJSX: (
-          <div className="flex items-center gap-x-9 my-5 justify-start h-20">
-          <div className="flex flex-col gap-x-9">
-          <p className="text-md text-gray-300 text-2xl">Step 1: Open AI Toolbar</p>
-          <p className="text-md text-gray-300 text-2xl">Step 2: Enter prompt or upload image (sketches work too)</p>
-          </div>
-        </div>
-    ),
-  },
-  {
-    gif: "https://storage.googleapis.com/tempo-public-images/checkout-code.gif",
-    title: "Checkout The Code",
-    subtitle: "You can view and edit code anytime",
-    customJSX: (
-      <div className="flex items-center gap-x-9 my-5 justify-start h-20">
-        <div className="flex flex-col gap-x-9">
-        <p className="text-md text-gray-300 text-2xl">Step 1: Right-click any element</p>
-        <p className="text-md text-gray-300 text-2xl">Step 2: Select "Open In Editor"</p>
-        </div>
-      </div>
-    ),
-  },
-  {
-    gif: "https://storage.googleapis.com/tempo-public-images/components-marketplace.gif",
-    title: "Reuse Components From The Marketplace",
-    subtitle: "Drag and drop any component from the community",
-    customJSX: (
-      <div className="flex items-center gap-x-9 my-5 justify-start h-20">
-      <div className="flex flex-col gap-x-9">
-      <p className="text-md text-gray-300 text-2xl">Step 1: Open the components toolbar</p>
-      <p className="text-md text-gray-300 text-2xl">Step 2: Drag any component onto the canvas</p>
-      </div>
-    </div>
-    ),
-  },
-  {
-    gif: "https://storage.googleapis.com/tempo-public-images/push-git.gif",
-    title: "Push To Github",
-    subtitle: "Create a git repository and publish your code",
-    customJSX: (
-      <div className="flex items-center gap-x-9 my-5 justify-start h-20">
-      <div className="flex flex-col gap-x-9">
-      <p className="text-md text-gray-300 text-2xl">Step 1: Open the code editor</p>
-      <p className="text-md text-gray-300 text-2xl">Step 2: Select the version control tab</p>
-      <p className="text-md text-gray-300 text-2xl">Step 3: Click "Create repository"</p>
-      </div>
-    </div>
-    ),
-  },
-  {
-    gif: "https://media.giphy.com/media/3oz9ZE2Oo9zRC/giphy.gif",
-    title: "That's it!",
-    subtitle: "Time to start building your own UIs :)",
-    customJSX: (
-      <div className="flex items-center gap-x-9 my-5 justify-start h-20">
-        <div className="flex flex-col gap-x-9">
-          <p className="text-2xl text-gray-300">Questions? Reach us at founders@tempolabs.ai</p>
-        </div>
-      </div>
-    ),
-  },
-];
+  const handleChange = (field: string, value: string) => {
+    setFormData((prevState) => ({ ...prevState, [field]: value }));
+  };
 
-function Tutorial() {
-  const [currentGif, setCurrentGif] = useState(0);
-
-  useEffect(() => {
-    return () => clearInterval(intervalRef.current);
-  }, []);
-
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const prevGif = () =>
-    setCurrentGif(currentGif > 0 ? currentGif - 1 : tutorialData.length - 1);
-  const nextGif = () =>
-    setCurrentGif(currentGif < tutorialData.length - 1 ? currentGif + 1 : 0);
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    console.log(formData);
+    // Handle form submission logic
+  };
 
   return (
-    <div
-      className="h-screen flex justify-center items-center bg-[#1E1B26] dark:bg-black w-screen">
-      <div className="mx-auto p-4 max-w-[88rem]">
-        <div className="mb-4 text-left">
-          <h1 className="font-bold text-white mb-2.5 text-4xl">
-            {tutorialData[currentGif].title}
-          </h1>
-          <p className="text-md text-gray-300 mt-1 text-3xl">
-            {tutorialData[currentGif].subtitle}
-          </p>
-          {tutorialData[currentGif].customJSX}
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-6 bg-white dark:bg-black p-6 rounded-md"
+    >
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+        User Information
+      </h2>
+      <div>
+        <Label htmlFor="name">
+          <User2 className="mr-2 h-4 w-4 inline" />
+          Full Name
+        </Label>
+        <Input
+          id="name"
+          type="text"
+          placeholder="John Doe"
+          onChange={(e) => handleChange("name", e.target.value)}
+        />
+      </div>
+
+      <div>
+        <Label htmlFor="education">
+          <School2 className="mr-2 h-4 w-4 inline" />
+          Education
+        </Label>
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Select Education" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem
+              value="highSchool"
+              onSelect={() => handleChange("education", "High School")}
+            >
+              High School
+            </SelectItem>
+            <SelectItem
+              value="bachelor"
+              onSelect={() => handleChange("education", "Bachelor")}
+            >
+              Bachelor
+            </SelectItem>
+            <SelectItem
+              value="master"
+              onSelect={() => handleChange("education", "Master")}
+            >
+              Master
+            </SelectItem>
+            <SelectItem
+              value="phd"
+              onSelect={() => handleChange("education", "Ph.D")}
+            >
+              Ph.D
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div>
+        <Label htmlFor="experience-level">
+          <User2 className="mr-2 h-4 w-4 inline" />
+          Experience Level
+        </Label>
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Select Experience Level" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem
+              value="beginner"
+              onSelect={() => handleChange("experienceLevel", "Beginner")}
+            >
+              Beginner
+            </SelectItem>
+            <SelectItem
+              value="intermediate"
+              onSelect={() => handleChange("experienceLevel", "Intermediate")}
+            >
+              Intermediate
+            </SelectItem>
+            <SelectItem
+              value="advanced"
+              onSelect={() => handleChange("experienceLevel", "Advanced")}
+            >
+              Advanced
+            </SelectItem>
+            <SelectItem
+              value="expert"
+              onSelect={() => handleChange("experienceLevel", "Expert")}
+            >
+              Expert
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div>
+        <Label htmlFor="job-title">
+          <User2 className="mr-2 h-4 w-4 inline" />
+          Job Title
+        </Label>
+        <Input
+          id="job-title"
+          type="text"
+          placeholder="Software Engineer"
+          onChange={(e) => handleChange("jobTitle", e.target.value)}
+        />
+      </div>
+
+      <div>
+        <Label htmlFor="location">
+          <Globe2 className="mr-2 h-4 w-4 inline" />
+          Location
+        </Label>
+        <Input
+          id="location"
+          type="text"
+          placeholder="City, Country"
+          onChange={(e) => handleChange("location", e.target.value)}
+        />
+      </div>
+
+      <div>
+        <Label htmlFor="type">
+          <User2 className="mr-2 h-4 w-4 inline" />
+          Type
+        </Label>
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Select Type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem
+              value="full-time"
+              onSelect={() => handleChange("type", "Full-time")}
+            >
+              Full-time
+            </SelectItem>
+            <SelectItem
+              value="part-time"
+              onSelect={() => handleChange("type", "Part-time")}
+            >
+              Part-time
+            </SelectItem>
+            <SelectItem
+              value="contract"
+              onSelect={() => handleChange("type", "Contract")}
+            >
+              Contract
+            </SelectItem>
+            <SelectItem
+              value="internship"
+              onSelect={() => handleChange("type", "Internship")}
+            >
+              Internship
+            </SelectItem>
+            <SelectItem
+              value="temporary"
+              onSelect={() => handleChange("type", "Temporary")}
+            >
+              Temporary
+            </SelectItem>
+            <SelectItem
+              value="volunteer"
+              onSelect={() => handleChange("type", "Volunteer")}
+            >
+              Volunteer
+            </SelectItem>
+            <SelectItem
+              value="other"
+              onSelect={() => handleChange("type", "Other")}
+            >
+              Other
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div>
+        <Label htmlFor="remote-work">Remote Work</Label>
+        <div className="flex items-center">
+          <input
+            id="remote-work-yes"
+            name="remote-work"
+            type="radio"
+            value="yes"
+            onChange={(e) => handleChange("remoteWork", e.target.value)}
+            className="mr-2"
+          />
+          <Label htmlFor="remote-work-yes" className="mr-4">
+            Yes
+          </Label>
+          <input
+            id="remote-work-no"
+            name="remote-work"
+            type="radio"
+            value="no"
+            onChange={(e) => handleChange("remoteWork", e.target.value)}
+            className="mr-2"
+          />
+          <Label htmlFor="remote-work-no">No</Label>
         </div>
-        <div className="relative mb-4 flex justify-center">
-          <div
-            className="rounded-lg overflow-hidden flex justify-center items-center bg-[#1e1b26] w-[86vh] border-0 border-white border-solid">
-            <img
-              src={tutorialData[currentGif].gif}
-              alt={`Step ${currentGif}`}
-              className="w-full h-full border-0 border-white border-solid" />
-          </div>
-        </div>
-        <div className="flex justify-center space-x-1 mb-9">
-          {tutorialData.map((_, index) => (
-            <button
-              key={index}
-              className={`h-2 w-2 rounded-full ${
-                index === currentGif ? "bg-gray-500" : "bg-white"
-              }`}
-              onClick={() => setCurrentGif(index)} />
-          ))}
-        </div>
-        <div><div className="flex items-center justify-center space-x-4">
-              {currentGif === 0 ? <Button
-                variant="ghost"
-                onClick={nextGif}
-                className="text-white bg-[#6559EC] hover:bg-[#6559EC]/50 text-2xl font-normal rounded-3xl p-6"
-                disabled={currentGif === tutorialData.length - 1}>Get Started</Button> : <>
-                <Button
-                  variant="ghost"
-                  onClick={prevGif}
-                  className="text-white bg-[#6559EC] hover:bg-[#6559EC]/50 text-2xl font-normal rounded-3xl p-6"
-                  disabled={currentGif === 0}>
-                  <ChevronLeft className="h-6 w-6" />Prev</Button>
-                {currentGif === tutorialData.length - 1 ? null : <Button
-                  variant="ghost"
-                  onClick={nextGif}
-                  className="text-white bg-[#6559EC] hover:bg-[#6559EC]/50 text-2xl font-normal rounded-3xl p-6"
-                  disabled={currentGif === tutorialData.length - 1}>Next<ChevronRight className="h-6 w-6" />
-                </Button>}
-              </>}
-            </div><p className="text-md text-gray-400 text-center mt-3.5 text-2xl">Reminder: select "Preview Mode" in the top-right to click these buttons</p></div>
-      </div>{" "}
-    </div>
+      </div>
+      <div>
+        <Label htmlFor="expected-salary">
+          <User2 className="mr-2 h-4 w-4 inline" />
+          Expected Salary
+        </Label>
+        <Input
+          id="expected-salary"
+          type="text"
+          placeholder="Expected Salary"
+          onChange={(e) => handleChange("expectedSalary", e.target.value)}
+        />
+      </div>
+
+      <div>
+        <Label htmlFor="accessibility-features">Accessibility Features</Label>
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Select Accessibility Features" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem
+              value="screenReader"
+              onSelect={() =>
+                handleChange("accessibilityFeatures", "Screen Reader")
+              }
+            >
+              Screen Reader
+            </SelectItem>
+            <SelectItem
+              value="brailleDisplay"
+              onSelect={() =>
+                handleChange("accessibilityFeatures", "Braille Display")
+              }
+            >
+              Braille Display
+            </SelectItem>
+            <SelectItem
+              value="magnifier"
+              onSelect={() =>
+                handleChange("accessibilityFeatures", "Magnifier")
+              }
+            >
+              Magnifier
+            </SelectItem>
+            <SelectItem
+              value="speechRecognition"
+              onSelect={() =>
+                handleChange("accessibilityFeatures", "Speech Recognition")
+              }
+            >
+              Speech Recognition
+            </SelectItem>
+            <SelectItem
+              value="none"
+              onSelect={() => handleChange("accessibilityFeatures", "None")}
+            >
+              None
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div>
+        <Button type="submit">Submit</Button>
+      </div>
+    </form>
   );
 }
 
-export default Tutorial;
+export default UserInfoCollectionForm;
