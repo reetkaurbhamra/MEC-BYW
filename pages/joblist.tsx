@@ -5,20 +5,18 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { ChevronRight } from "lucide-react";
-import { useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
-
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Home() {
-  const [filteredList, setFilteredList] = useState(String);
+  const [filteredList, setFilteredList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  function getCookie(name: any) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  }
 
   useEffect(() => {
     async function fetchdata() {
@@ -30,22 +28,18 @@ export default function Home() {
           return text;
         });
 
-      await fetch(`api/getFilteredList`, {
+      const userData = await fetch(`api/getFilteredList`, {
         method: "POST",
-        body: JSON.stringify({ jobs: dataset, user: {} }),
+        body: JSON.stringify({ jobs: dataset, user: getCookie("user") }),
       })
-        .then((res) => res.text())
-        .then((text) => {
-          // UI THIS
-          setFilteredList(text);
+        .then((res) => res.json())
+        .then((json) => {
+          // setFilteredList(json.list); // SCUFFED
         });
     }
 
     fetchdata();
   });
-
-  const JobListingPage = () => {
-  const [currentPage, setCurrentPage] = useState(1);
 
   const prevPage = () => {
     setCurrentPage((page) => (page > 1 ? page - 1 : page));
@@ -56,13 +50,12 @@ export default function Home() {
   };
 
   // Assuming 10 job listings for the placeholder
-  const placeholderJobs = new Array(10).fill(0).map((_, index) => ({
-    title: `Job Title ${index + 1}`,
-    company: `Company ${index + 1}`,
+  const placeholderJobs = filteredList.map((e, i) => ({
+    title: `Job Title ${e.title}`,
+    company: `Company ${e.company}`,
     location: "Location",
     description: "This is a brief description of the job opportunity.",
   }));
-const inter = Inter({ subsets: ["latin"] });
 
   return (
     <div className="px-4 py-8 bg-white dark:bg-black">
@@ -74,9 +67,7 @@ const inter = Inter({ subsets: ["latin"] });
               <CardDescription>
                 {job.company} - {job.location}
                 <br />
-                <span className="text-sm text-gray-600">
-                  Accessibility: {job.accessibility}
-                </span>
+                <span className="text-sm text-gray-600">Accessibility: {job.description}</span>
               </CardDescription>
             </CardHeader>
             <CardContent>
