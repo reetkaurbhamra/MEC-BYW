@@ -20,7 +20,8 @@ function UserInfoCollectionForm() {
   const [formData, setFormData] = useState({});
 
   function setCookie(name: any, value: any, expires = "Fri, 31 Dec 9999 23:59:59 GMT") {
-    document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+    document.cookie = `${name}=${JSON.stringify(value)}; expires=${expires}; path=/`;
+    console.log(document.cookie);
   }
 
   const handleChange = (field: string, value: string) => {
