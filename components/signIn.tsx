@@ -83,17 +83,23 @@ function UserInfoCollectionForm() {
             <SelectValue placeholder="Select Experience Level" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="beginner" onSelect={() => handleChange("experienceLevel", "Beginner")}>
-              Beginner
+            <SelectItem value="associate" onSelect={() => handleChange("experienceLevel", "Associate")}>
+              Associate
             </SelectItem>
-            <SelectItem value="intermediate" onSelect={() => handleChange("experienceLevel", "Intermediate")}>
-              Intermediate
+            <SelectItem value="director" onSelect={() => handleChange("experienceLevel", "Director")}>
+              Director
             </SelectItem>
-            <SelectItem value="advanced" onSelect={() => handleChange("experienceLevel", "Advanced")}>
-              Advanced
+            <SelectItem value="entrylevel" onSelect={() => handleChange("experienceLevel", "Entry-level")}>
+              Entry-Level
             </SelectItem>
-            <SelectItem value="expert" onSelect={() => handleChange("experienceLevel", "Expert")}>
-              Expert
+            <SelectItem value="executive" onSelect={() => handleChange("experienceLevel", "executive")}>
+              Executive
+            </SelectItem>
+            <SelectItem value="internship" onSelect={() => handleChange("experienceLevel", "internship")}>
+              Internship
+            </SelectItem>
+            <SelectItem value="executive" onSelect={() => handleChange("experienceLevel", "Mid-Senior level")}>
+              Mid-senior Level
             </SelectItem>
           </SelectContent>
         </Select>
@@ -206,7 +212,7 @@ function UserInfoCollectionForm() {
         <Input
           id="skills"
           type="text"
-          placeholder="Your skills"
+          placeholder="Your skills separated by commas"
           onChange={(e) => handleChange("skills", e.target.value)}
         />
       </div>
