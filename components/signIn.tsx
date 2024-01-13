@@ -15,20 +15,23 @@ import { Smartphone } from "lucide-react";
 import { User2 } from "lucide-react";
 import { FormEvent } from "react";
 import { useState } from "react";
-// [meta] name: UserInfoCollectionForm
-// [meta] description: Create an update for the form to collect user information like name, education, country of residence, and phone number
+
 function UserInfoCollectionForm() {
   const [formData, setFormData] = useState({});
 
+  function setCookie(name: any, value: any, expires = "Fri, 31 Dec 9999 23:59:59 GMT") {
+    document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+  }
+
   const handleChange = (field: string, value: string) => {
+    console.log("in handle");
     setFormData((prevState) => ({ ...prevState, [field]: value }));
   };
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log(formData);
-    // window.open("joblist");
-    // Handle form submission logic
+    setCookie("user", formData);
+    window.open("joblist");
   };
 
   return (
@@ -47,25 +50,13 @@ function UserInfoCollectionForm() {
           <School2 className="mr-2 h-4 w-4 inline" />
           Education
         </Label>
-        <Select multiple>
-          <SelectTrigger>
-            <SelectValue placeholder="Select Education" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="highSchool" onSelect={() => handleChange("education", "High School")}>
-              High School
-            </SelectItem>
-            <SelectItem value="bachelor" onSelect={() => handleChange("education", "Bachelor")}>
-              Bachelor
-            </SelectItem>
-            <SelectItem value="master" onSelect={() => handleChange("education", "Master")}>
-              Master
-            </SelectItem>
-            <SelectItem value="phd" onSelect={() => handleChange("education", "Ph.D")}>
-              Ph.D
-            </SelectItem>
-          </SelectContent>
-        </Select>
+        <select onChange={(e) => handleChange("education", e.target.value)}>
+          <option value="select">Select</option>
+          <option value="highSchool">HighSchool</option>
+          <option value="bachelor">Bachelor</option>
+          <option value="master">Master</option>
+          <option value="phd">PHD</option>
+        </select>
       </div>
 
       <div>
@@ -73,31 +64,15 @@ function UserInfoCollectionForm() {
           <User2 className="mr-2 h-4 w-4 inline" />
           Experience Level
         </Label>
-        <Select>
-          <SelectTrigger>
-            <SelectValue placeholder="Select Experience Level" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="associate" onSelect={() => handleChange("experienceLevel", "Associate")}>
-              Associate
-            </SelectItem>
-            <SelectItem value="director" onSelect={() => handleChange("experienceLevel", "Director")}>
-              Director
-            </SelectItem>
-            <SelectItem value="entrylevel" onSelect={() => handleChange("experienceLevel", "Entry-level")}>
-              Entry-Level
-            </SelectItem>
-            <SelectItem value="executive" onSelect={() => handleChange("experienceLevel", "executive")}>
-              Executive
-            </SelectItem>
-            <SelectItem value="internship" onSelect={() => handleChange("experienceLevel", "internship")}>
-              Internship
-            </SelectItem>
-            <SelectItem value="executive" onSelect={() => handleChange("experienceLevel", "Mid-Senior level")}>
-              Mid-senior Level
-            </SelectItem>
-          </SelectContent>
-        </Select>
+        <select onChange={(e) => handleChange("experienceLevel", e.target.value)}>
+          <option value="select">Select</option>
+          <option value="associate">associate</option>
+          <option value="director">director</option>
+          <option value="entrylevel">entrylevel</option>
+          <option value="executive">executive</option>
+          <option value="internship">internship</option>
+          <option value="Mid-Senior level">Mid-Senior level</option>
+        </select>
       </div>
 
       <div>
@@ -131,34 +106,16 @@ function UserInfoCollectionForm() {
           <User2 className="mr-2 h-4 w-4 inline" />
           Job Type
         </Label>
-        <Select>
-          <SelectTrigger>
-            <SelectValue placeholder="Select Type" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="full-time" onSelect={() => handleChange("type", "Full-time")}>
-              Full-time
-            </SelectItem>
-            <SelectItem value="part-time" onSelect={() => handleChange("type", "Part-time")}>
-              Part-time
-            </SelectItem>
-            <SelectItem value="contract" onSelect={() => handleChange("type", "Contract")}>
-              Contract
-            </SelectItem>
-            <SelectItem value="internship" onSelect={() => handleChange("type", "Internship")}>
-              Internship
-            </SelectItem>
-            <SelectItem value="temporary" onSelect={() => handleChange("type", "Temporary")}>
-              Temporary
-            </SelectItem>
-            <SelectItem value="volunteer" onSelect={() => handleChange("type", "Volunteer")}>
-              Volunteer
-            </SelectItem>
-            <SelectItem value="other" onSelect={() => handleChange("type", "Other")}>
-              Other
-            </SelectItem>
-          </SelectContent>
-        </Select>
+        <select onChange={(e) => handleChange("jobType", e.target.value)}>
+          <option value="select">Select</option>
+          <option value="full-time">full-time</option>
+          <option value="part-time">part-time</option>
+          <option value="contract">contract</option>
+          <option value="internship">internship</option>
+          <option value="temporary">temporary</option>
+          <option value="volunteer">volunteer</option>
+          <option value="other">other</option>
+        </select>
       </div>
 
       <div>
@@ -214,389 +171,83 @@ function UserInfoCollectionForm() {
 
       <div>
         <Label htmlFor="accessibility-features">Accessibility Features</Label>
-        <Select multiple>
-          <SelectTrigger>
-            <SelectValue placeholder="Select Accessibility Features" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="screenReader" onSelect={() => handleChange("accessibilityFeatures", "Screen Reader")}>
-              Screen Reader
-            </SelectItem>
-            <SelectItem
-              value="brailleDisplay"
-              onSelect={() => handleChange("accessibilityFeatures", "Braille and Large Print Materials")}
-            >
-              Braille and Large Print Materials
-            </SelectItem>
-            <SelectItem value="magnifier" onSelect={() => handleChange("accessibilityFeatures", "Magnifier")}>
-              Magnifier
-            </SelectItem>
-            <SelectItem
-              value="speechRecognition"
-              onSelect={() => handleChange("accessibilityFeatures", "Speech Recognition")}
-            >
-              Speech Recognition
-            </SelectItem>
-            <SelectItem value="none" onSelect={() => handleChange("accessibilityFeatures", "None")}>
-              None
-            </SelectItem>
-            {/* Add the following lines for additional accessibility features */}
-            <SelectItem
-              value="reasonableAccommodations"
-              onSelect={() => handleChange("accessibilityFeatures", "Reasonable Accommodations")}
-            >
-              Reasonable Accommodations
-            </SelectItem>
-            <SelectItem
-              value="emergencyEvacuationPlans"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Emergency Evacuation Plans")}
-            >
-              Accessible Emergency Evacuation Plans
-            </SelectItem>
-            <SelectItem
-              value="clearCommunication"
-              onSelect={() => handleChange("accessibilityFeatures", "Clear Communication")}
-            >
-              Clear Communication
-            </SelectItem>
-            <SelectItem
-              value="assistiveTechnology"
-              onSelect={() => handleChange("accessibilityFeatures", "Assistive Technology")}
-            >
-              Assistive Technology
-            </SelectItem>
-            <SelectItem
-              value="mentalHealthSupport"
-              onSelect={() => handleChange("accessibilityFeatures", "Mental Health Support")}
-            >
-              Mental Health Support
-            </SelectItem>
-            <SelectItem
-              value="feedbackMechanisms"
-              onSelect={() => handleChange("accessibilityFeatures", "Feedback Mechanisms")}
-            >
-              Feedback Mechanisms
-            </SelectItem>
-            <SelectItem
-              value="flexibleWorkArrangements"
-              onSelect={() => handleChange("accessibilityFeatures", "Flexible Work Arrangements")}
-            >
-              Flexible Work Arrangements
-            </SelectItem>
-            <SelectItem
-              value="assistanceAnimals"
-              onSelect={() => handleChange("accessibilityFeatures", "Assistance Animals")}
-            >
-              Assistance Animals
-            </SelectItem>
-            <SelectItem
-              value="meetingsAndEvents"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Meetings and Events")}
-            >
-              Accessible Meetings and Events
-            </SelectItem>
-            <SelectItem
-              value="restAreas"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Rest Areas")}
-            >
-              Accessible Rest Areas
-            </SelectItem>
-            <SelectItem
-              value="communication"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Communication")}
-            >
-              Accessible Communication
-            </SelectItem>
-            <SelectItem
-              value="mentoringAndSupport"
-              onSelect={() => handleChange("accessibilityFeatures", "Mentoring and Support Programs")}
-            >
-              Mentoring and Support Programs
-            </SelectItem>
-            <SelectItem
-              value="websitesAndIntranet"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Websites and Intranet")}
-            >
-              Accessible Websites and Intranet
-            </SelectItem>
-            <SelectItem
-              value="ergonomicWorkstations"
-              onSelect={() => handleChange("accessibilityFeatures", "Ergonomic Workstations")}
-            >
-              Ergonomic Workstations
-            </SelectItem>
-            <SelectItem
-              value="trainingAndSensitivity"
-              onSelect={() => handleChange("accessibilityFeatures", "Training and Sensitivity Programs")}
-            >
-              Training and Sensitivity Programs
-            </SelectItem>
-            <SelectItem
-              value="facilities"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Facilities")}
-            >
-              Accessible Facilities
-            </SelectItem>
-          </SelectContent>
-        </Select>
+        <select onChange={(e) => handleChange("accessibilityFeatures1", e.target.value)}>
+          <option value="none">none</option>
+          <option value="screenReader">screenReader</option>
+          <option value="brailleDisplay">brailleDisplay</option>
+          <option value="magnifier">magnifier</option>
+          <option value="speechRecognition">speechRecognition</option>
+          <option value="Reasonable Accommodations">Reasonable Accommodations</option>
+          <option value="emergencyEvacuationPlans">emergencyEvacuationPlans</option>
+          <option value="clearCommunication">clearCommunication</option>
+          <option value="assistiveTechnology">assistiveTechnology</option>
+          <option value="mentalHealthSupport">mentalHealthSupport</option>
+          <option value="feedbackMechanisms">feedbackMechanisms</option>
+          <option value="flexibleWorkArrangements">flexibleWorkArrangements</option>
+          <option value="assistanceAnimals">assistanceAnimals</option>
+          <option value="meetingsAndEvents">meetingsAndEvents</option>
+          <option value="restAreas">restAreas</option>
+          <option value="communication">communication</option>
+          <option value="mentoringAndSupport">mentoringAndSupport</option>
+          <option value="websitesAndIntranet">websitesAndIntranet</option>
+          <option value="ergonomicWorkstations">ergonomicWorkstations</option>
+          <option value="trainingAndSensitivity">trainingAndSensitivity</option>
+          <option value="facilities">facilities</option>
+        </select>
       </div>
 
       <div>
         <Label htmlFor="accessibility-features">Accessibility Features</Label>
-        <Select multiple>
-          <SelectTrigger>
-            <SelectValue placeholder="Select Accessibility Features" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="screenReader" onSelect={() => handleChange("accessibilityFeatures", "Screen Reader")}>
-              Screen Reader
-            </SelectItem>
-            <SelectItem
-              value="brailleDisplay"
-              onSelect={() => handleChange("accessibilityFeatures", "Braille and Large Print Materials")}
-            >
-              Braille and Large Print Materials
-            </SelectItem>
-            <SelectItem value="magnifier" onSelect={() => handleChange("accessibilityFeatures", "Magnifier")}>
-              Magnifier
-            </SelectItem>
-            <SelectItem
-              value="speechRecognition"
-              onSelect={() => handleChange("accessibilityFeatures", "Speech Recognition")}
-            >
-              Speech Recognition
-            </SelectItem>
-            <SelectItem value="none" onSelect={() => handleChange("accessibilityFeatures", "None")}>
-              None
-            </SelectItem>
-            {/* Add the following lines for additional accessibility features */}
-            <SelectItem
-              value="reasonableAccommodations"
-              onSelect={() => handleChange("accessibilityFeatures", "Reasonable Accommodations")}
-            >
-              Reasonable Accommodations
-            </SelectItem>
-            <SelectItem
-              value="emergencyEvacuationPlans"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Emergency Evacuation Plans")}
-            >
-              Accessible Emergency Evacuation Plans
-            </SelectItem>
-            <SelectItem
-              value="clearCommunication"
-              onSelect={() => handleChange("accessibilityFeatures", "Clear Communication")}
-            >
-              Clear Communication
-            </SelectItem>
-            <SelectItem
-              value="assistiveTechnology"
-              onSelect={() => handleChange("accessibilityFeatures", "Assistive Technology")}
-            >
-              Assistive Technology
-            </SelectItem>
-            <SelectItem
-              value="mentalHealthSupport"
-              onSelect={() => handleChange("accessibilityFeatures", "Mental Health Support")}
-            >
-              Mental Health Support
-            </SelectItem>
-            <SelectItem
-              value="feedbackMechanisms"
-              onSelect={() => handleChange("accessibilityFeatures", "Feedback Mechanisms")}
-            >
-              Feedback Mechanisms
-            </SelectItem>
-            <SelectItem
-              value="flexibleWorkArrangements"
-              onSelect={() => handleChange("accessibilityFeatures", "Flexible Work Arrangements")}
-            >
-              Flexible Work Arrangements
-            </SelectItem>
-            <SelectItem
-              value="assistanceAnimals"
-              onSelect={() => handleChange("accessibilityFeatures", "Assistance Animals")}
-            >
-              Assistance Animals
-            </SelectItem>
-            <SelectItem
-              value="meetingsAndEvents"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Meetings and Events")}
-            >
-              Accessible Meetings and Events
-            </SelectItem>
-            <SelectItem
-              value="restAreas"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Rest Areas")}
-            >
-              Accessible Rest Areas
-            </SelectItem>
-            <SelectItem
-              value="communication"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Communication")}
-            >
-              Accessible Communication
-            </SelectItem>
-            <SelectItem
-              value="mentoringAndSupport"
-              onSelect={() => handleChange("accessibilityFeatures", "Mentoring and Support Programs")}
-            >
-              Mentoring and Support Programs
-            </SelectItem>
-            <SelectItem
-              value="websitesAndIntranet"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Websites and Intranet")}
-            >
-              Accessible Websites and Intranet
-            </SelectItem>
-            <SelectItem
-              value="ergonomicWorkstations"
-              onSelect={() => handleChange("accessibilityFeatures", "Ergonomic Workstations")}
-            >
-              Ergonomic Workstations
-            </SelectItem>
-            <SelectItem
-              value="trainingAndSensitivity"
-              onSelect={() => handleChange("accessibilityFeatures", "Training and Sensitivity Programs")}
-            >
-              Training and Sensitivity Programs
-            </SelectItem>
-            <SelectItem
-              value="facilities"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Facilities")}
-            >
-              Accessible Facilities
-            </SelectItem>
-          </SelectContent>
-        </Select>
+        <select onChange={(e) => handleChange("accessibilityFeatures2", e.target.value)}>
+          <option value="none">none</option>
+          <option value="screenReader">screenReader</option>
+          <option value="brailleDisplay">brailleDisplay</option>
+          <option value="magnifier">magnifier</option>
+          <option value="speechRecognition">speechRecognition</option>
+          <option value="Reasonable Accommodations">Reasonable Accommodations</option>
+          <option value="emergencyEvacuationPlans">emergencyEvacuationPlans</option>
+          <option value="clearCommunication">clearCommunication</option>
+          <option value="assistiveTechnology">assistiveTechnology</option>
+          <option value="mentalHealthSupport">mentalHealthSupport</option>
+          <option value="feedbackMechanisms">feedbackMechanisms</option>
+          <option value="flexibleWorkArrangements">flexibleWorkArrangements</option>
+          <option value="assistanceAnimals">assistanceAnimals</option>
+          <option value="meetingsAndEvents">meetingsAndEvents</option>
+          <option value="restAreas">restAreas</option>
+          <option value="communication">communication</option>
+          <option value="mentoringAndSupport">mentoringAndSupport</option>
+          <option value="websitesAndIntranet">websitesAndIntranet</option>
+          <option value="ergonomicWorkstations">ergonomicWorkstations</option>
+          <option value="trainingAndSensitivity">trainingAndSensitivity</option>
+          <option value="facilities">facilities</option>
+        </select>
       </div>
 
       <div>
         <Label htmlFor="accessibility-features">Accessibility Features</Label>
-        <Select multiple>
-          <SelectTrigger>
-            <SelectValue placeholder="Select Accessibility Features" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="screenReader" onSelect={() => handleChange("accessibilityFeatures", "Screen Reader")}>
-              Screen Reader
-            </SelectItem>
-            <SelectItem
-              value="brailleDisplay"
-              onSelect={() => handleChange("accessibilityFeatures", "Braille and Large Print Materials")}
-            >
-              Braille and Large Print Materials
-            </SelectItem>
-            <SelectItem value="magnifier" onSelect={() => handleChange("accessibilityFeatures", "Magnifier")}>
-              Magnifier
-            </SelectItem>
-            <SelectItem
-              value="speechRecognition"
-              onSelect={() => handleChange("accessibilityFeatures", "Speech Recognition")}
-            >
-              Speech Recognition
-            </SelectItem>
-            <SelectItem value="none" onSelect={() => handleChange("accessibilityFeatures", "None")}>
-              None
-            </SelectItem>
-            {/* Add the following lines for additional accessibility features */}
-            <SelectItem
-              value="reasonableAccommodations"
-              onSelect={() => handleChange("accessibilityFeatures", "Reasonable Accommodations")}
-            >
-              Reasonable Accommodations
-            </SelectItem>
-            <SelectItem
-              value="emergencyEvacuationPlans"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Emergency Evacuation Plans")}
-            >
-              Accessible Emergency Evacuation Plans
-            </SelectItem>
-            <SelectItem
-              value="clearCommunication"
-              onSelect={() => handleChange("accessibilityFeatures", "Clear Communication")}
-            >
-              Clear Communication
-            </SelectItem>
-            <SelectItem
-              value="assistiveTechnology"
-              onSelect={() => handleChange("accessibilityFeatures", "Assistive Technology")}
-            >
-              Assistive Technology
-            </SelectItem>
-            <SelectItem
-              value="mentalHealthSupport"
-              onSelect={() => handleChange("accessibilityFeatures", "Mental Health Support")}
-            >
-              Mental Health Support
-            </SelectItem>
-            <SelectItem
-              value="feedbackMechanisms"
-              onSelect={() => handleChange("accessibilityFeatures", "Feedback Mechanisms")}
-            >
-              Feedback Mechanisms
-            </SelectItem>
-            <SelectItem
-              value="flexibleWorkArrangements"
-              onSelect={() => handleChange("accessibilityFeatures", "Flexible Work Arrangements")}
-            >
-              Flexible Work Arrangements
-            </SelectItem>
-            <SelectItem
-              value="assistanceAnimals"
-              onSelect={() => handleChange("accessibilityFeatures", "Assistance Animals")}
-            >
-              Assistance Animals
-            </SelectItem>
-            <SelectItem
-              value="meetingsAndEvents"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Meetings and Events")}
-            >
-              Accessible Meetings and Events
-            </SelectItem>
-            <SelectItem
-              value="restAreas"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Rest Areas")}
-            >
-              Accessible Rest Areas
-            </SelectItem>
-            <SelectItem
-              value="communication"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Communication")}
-            >
-              Accessible Communication
-            </SelectItem>
-            <SelectItem
-              value="mentoringAndSupport"
-              onSelect={() => handleChange("accessibilityFeatures", "Mentoring and Support Programs")}
-            >
-              Mentoring and Support Programs
-            </SelectItem>
-            <SelectItem
-              value="websitesAndIntranet"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Websites and Intranet")}
-            >
-              Accessible Websites and Intranet
-            </SelectItem>
-            <SelectItem
-              value="ergonomicWorkstations"
-              onSelect={() => handleChange("accessibilityFeatures", "Ergonomic Workstations")}
-            >
-              Ergonomic Workstations
-            </SelectItem>
-            <SelectItem
-              value="trainingAndSensitivity"
-              onSelect={() => handleChange("accessibilityFeatures", "Training and Sensitivity Programs")}
-            >
-              Training and Sensitivity Programs
-            </SelectItem>
-            <SelectItem
-              value="facilities"
-              onSelect={() => handleChange("accessibilityFeatures", "Accessible Facilities")}
-            >
-              Accessible Facilities
-            </SelectItem>
-          </SelectContent>
-        </Select>
+        <select onChange={(e) => handleChange("accessibilityFeatures3", e.target.value)}>
+          <option value="none">none</option>
+          <option value="screenReader">screenReader</option>
+          <option value="brailleDisplay">brailleDisplay</option>
+          <option value="magnifier">magnifier</option>
+          <option value="speechRecognition">speechRecognition</option>
+          <option value="Reasonable Accommodations">Reasonable Accommodations</option>
+          <option value="emergencyEvacuationPlans">emergencyEvacuationPlans</option>
+          <option value="clearCommunication">clearCommunication</option>
+          <option value="assistiveTechnology">assistiveTechnology</option>
+          <option value="mentalHealthSupport">mentalHealthSupport</option>
+          <option value="feedbackMechanisms">feedbackMechanisms</option>
+          <option value="flexibleWorkArrangements">flexibleWorkArrangements</option>
+          <option value="assistanceAnimals">assistanceAnimals</option>
+          <option value="meetingsAndEvents">meetingsAndEvents</option>
+          <option value="restAreas">restAreas</option>
+          <option value="communication">communication</option>
+          <option value="mentoringAndSupport">mentoringAndSupport</option>
+          <option value="websitesAndIntranet">websitesAndIntranet</option>
+          <option value="ergonomicWorkstations">ergonomicWorkstations</option>
+          <option value="trainingAndSensitivity">trainingAndSensitivity</option>
+          <option value="facilities">facilities</option>
+        </select>
       </div>
 
       <div>

@@ -11,6 +11,13 @@ export default function Home() {
   const [filteredList, setFilteredList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+  function getCookie(name: any) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  }
+
   useEffect(() => {
     async function fetchdata() {
       const dataset = await fetch(`api/getDataset`, {
@@ -23,7 +30,7 @@ export default function Home() {
 
       const userData = await fetch(`api/getFilteredList`, {
         method: "POST",
-        body: JSON.stringify({ jobs: dataset, user: {} }),
+        body: JSON.stringify({ jobs: dataset, user: getCookie("user") }),
       })
         .then((res) => res.json())
         .then((json) => {
