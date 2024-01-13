@@ -8,7 +8,7 @@ import { ChevronRight } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Home() {
-  const [filteredList, setFilteredList] = useState({});
+  const [filteredList, setFilteredList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -27,8 +27,7 @@ export default function Home() {
       })
         .then((res) => res.json())
         .then((json) => {
-          setFilteredList(json.list);
-          console.log(filteredList);
+          // setFilteredList(json.list); // SCUFFED
         });
     }
 
@@ -44,9 +43,9 @@ export default function Home() {
   };
 
   // Assuming 10 job listings for the placeholder
-  const placeholderJobs = filteredList.split(",").map((i, e) => ({
-    title: `Job Title ${i + 1}`,
-    company: `Company ${i + 1}`,
+  const placeholderJobs = filteredList.map((e, i) => ({
+    title: `Job Title ${e.title}`,
+    company: `Company ${e.company}`,
     location: "Location",
     description: "This is a brief description of the job opportunity.",
   }));

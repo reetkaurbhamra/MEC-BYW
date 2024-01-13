@@ -4,7 +4,7 @@ type Data = {
   list: any;
 };
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+export default function handler(req: NextApiRequest, res: NextApiResponse<any>) {
   const jobs = req.body;
   let filteredList: any[] = [];
 
@@ -12,7 +12,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
     const job = jobs[key];
   }
 
-  res.status(200).json({ list: "1,25,8" });
+  res.status(200).json({ list: [{ name: "123" }, { name: "ccom" }] });
 }
 
 function getLocationScore() {
