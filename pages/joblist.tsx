@@ -32,15 +32,11 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user: getCookie("user"), jobs: JSON.stringify(dataset[1]) }),
+        body: JSON.stringify({ user: getCookie("user"), jobs: JSON.stringify(dataset.slice(600, 900)) }),
       })
         .then((res) => res.json())
         .then((json) => {
-          console.log(json);
           setFilteredList(json.list); // SCUFFED
-        })
-        .catch((e) => {
-          console.log("err", e);
         });
     }
 
@@ -58,7 +54,7 @@ export default function Home() {
   // Assuming 10 job listings for the placeholder
   const placeholderJobs = filteredList.map((e: any) => ({
     title: e.title,
-    company: e.company,
+    accessibility: e.accessft,
     location: e.location,
     description: e.desc,
   }));
@@ -71,9 +67,8 @@ export default function Home() {
             <CardHeader>
               <CardTitle>{job.title}</CardTitle>
               <CardDescription>
-                {job.company} - {job.location}
+                {job.location} - {job.accessibility}
                 <br />
-                <span className="text-sm text-gray-600">Accessibility: {job.description}</span>
               </CardDescription>
             </CardHeader>
             <CardContent>

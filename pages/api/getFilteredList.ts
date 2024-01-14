@@ -30,24 +30,20 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
   const jobs = JSON.parse(req.body.jobs);
   const user = JSON.parse(req.body.user);
   const filteredList = [];
-  console.log(jobs);
 
-  res.status(200).json({ list: [jobs] });
-  return;
-
-  const locationMult = 1.2;
+  const locationMult = 1.5;
   const experienceMult = 0.8;
   const jobTypeMult = 0.8;
-  const accessMult = 0.8;
-  const skillMult = 0.8;
-  const salaryMult = 0.8;
+  const accessMult = 2;
+  const skillMult = 1;
+  const salaryMult = 1.5;
 
   for (const key in jobs) {
     const job = jobs[key];
     var score = 0;
-    score += locationMult * getLocationScore(job.location, user.location, user.remote);
-    score += experienceMult * getExperienceScore(job.explevel, user.explevel);
-    score += jobTypeMult * getJobTypeScore(job.type, user.jobtype);
+    score += locationMult * getLocationScore(job.location, user.location, user.remoteWork);
+    score += experienceMult * getExperienceScore(job.explevel, user.experienceLevel);
+    score += jobTypeMult * getJobTypeScore(job.type, user.jobType);
     var jaccessstr = String(job.accessft).split(", ");
     var jaccess = [20];
     jaccessstr.forEach((ft) => {
@@ -65,19 +61,22 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
         accessFeatures.indexOf(user.access3),
         accessFeatures.indexOf(user.access4)
       );
-    console.log(job.title);
-    console.log(score);
 
     if (score < 0) continue;
     score += skillMult * getSkillScore(job.skills, user.skills);
-    var jmed = !(job.salmed === null);
-    var jmax = !(job.salmax === null);
-    score += salaryMult * getSalaryScore(job.salmax, job.salmin, job.salmed, user.salary, job.payperiod, jmed, jmax);
+    var jmed = !(job.salmed == "");
+    var jmax = !(job.salmax == "");
+    score +=
+      salaryMult * getSalaryScore(job.salmax, job.salmin, job.salmed, user.expectedSalary, job.payperiod, jmed, jmax);
+    console.log(job.title);
+    console.log(score, salaryMult);
 
+    job.score = score;
     filteredList.push(job);
-    if (filteredList.length > 3) break;
+    if (filteredList.length > 10) break;
   }
 
+  filteredList.sort((a, b) => b.score - a.score);
   res.status(200).json({ list: filteredList });
 }
 
@@ -94,7 +93,7 @@ function getLocationScore(joblocation: string, userlocation: string, remote: boo
   } else if (ustate === jstate) {
     return 4;
   } else {
-    return -300;
+    return 0;
   }
 }
 
@@ -104,7 +103,7 @@ function getLocationScore(joblocation: string, userlocation: string, remote: boo
 2 - advanced
 3 - expert */
 function getExperienceScore(jobexp: string, userexp: string) {
-  return jobexp === userexp ? 10 : -300;
+  return jobexp === userexp ? 10 : 0;
 }
 
 /*
@@ -141,7 +140,7 @@ function getSkillScore(jobskills: string, userskills: string) {
 5 - volunteer
 6 - other */
 function getJobTypeScore(jobtype: string, usertype: string) {
-  return jobtype === usertype ? 10 : -300;
+  return jobtype === usertype ? 10 : 0;
 }
 
 /*
@@ -153,16 +152,16 @@ function getSalaryScore(
   jobminsalary: number,
   jobmedsalary: number,
   usersalary: number,
-  jobpayperiod: number,
+  jobpayperiod: string,
   hasmedian: boolean,
   hasminmax: boolean
 ) {
-  if (!hasmedian && !hasminmax) return 0;
+  if (!hasmedian && !hasminmax) return 1;
   var jobsalary = hasmedian ? jobmedsalary : (jobmaxsalary + jobminsalary) / 2;
   var salscore;
-  if (jobpayperiod == 1) {
+  if (jobpayperiod === "MONTHLY") {
     jobsalary *= 12;
-  } else if (jobpayperiod == 2) {
+  } else if (jobpayperiod === "HOURLY") {
     jobsalary *= 2080;
   }
   if (jobsalary == usersalary) return 8;
@@ -171,7 +170,7 @@ function getSalaryScore(
   } else {
     salscore = (jobsalary - usersalary / 5) * (5 / usersalary) + 4;
   }
-  if (salscore < 0) return 0;
+  if (salscore < 0) return 1;
   if (salscore > 10) return 10;
   return salscore;
 }
@@ -186,18 +185,18 @@ function getAccessibilityScore(
   useraccess3: number,
   useraccess4: number
 ) {
-  if (useraccess1 == 0) return 10;
   var uaccess = [useraccess1, useraccess2, useraccess3, useraccess4];
   for (let i = 0; i < 4; i++) {
     if (uaccess[i] == 0) return 10;
     var nomatch = true;
+
     for (let j = 0; j < jobaccessft.length; j++) {
       if (jobaccessft[j] == uaccess[i]) {
         nomatch = false;
         break;
       }
     }
-    if (nomatch) return -300;
+    if (nomatch) return 1;
   }
   return 10;
 }
