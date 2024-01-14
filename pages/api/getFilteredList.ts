@@ -27,11 +27,12 @@ const accessFeatures = [
 ];
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-  const jobs = req.body.jobs;
-  // const user = JSON.parse(req.body.user);
+  const jobs = JSON.parse(req.body.jobs);
+  const user = JSON.parse(req.body.user);
   const filteredList = [];
+  console.log(jobs);
 
-  res.status(200).json({ list: [{ title: "leo cheng" }] });
+  res.status(200).json({ list: [jobs] });
   return;
 
   const locationMult = 1.2;

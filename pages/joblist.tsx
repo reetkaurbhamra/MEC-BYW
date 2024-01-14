@@ -14,10 +14,6 @@ export default function Home() {
   function getCookie(name: any) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
-    console.log("PARTS");
-    console.log(parts[0]);
-    console.log(parts);
-
     if (parts.length === 2) return parts.pop().split(";").shift();
   }
 
@@ -27,22 +23,21 @@ export default function Home() {
         method: "GET",
       })
         .then((res) => res.json())
-        .then((text) => {
-          return text;
+        .then((json) => {
+          return json;
         });
 
-      console.log(dataset);
       await fetch(`api/getFilteredList`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ jobs: dataset, user: getCookie("user") }),
+        body: JSON.stringify({ user: getCookie("user"), jobs: JSON.stringify(dataset[1]) }),
       })
         .then((res) => res.json())
         .then((json) => {
+          console.log(json);
           setFilteredList(json.list); // SCUFFED
-          console.log("ff", filteredList);
         })
         .catch((e) => {
           console.log("err", e);
@@ -61,11 +56,11 @@ export default function Home() {
   };
 
   // Assuming 10 job listings for the placeholder
-  const placeholderJobs = filteredList.map((e: any, i) => ({
-    title: `Job Title ${e.title}`,
-    company: `Company ${e.company}`,
-    location: "Location",
-    description: "This is a brief description of the job opportunity.",
+  const placeholderJobs = filteredList.map((e: any) => ({
+    title: e.title,
+    company: e.company,
+    location: e.location,
+    description: e.desc,
   }));
 
   return (

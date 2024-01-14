@@ -19,7 +19,7 @@ type Job = {
 };
 
 const headers = [
-  "Index",
+  "index",
   "title",
   "desc",
   "salmax",
