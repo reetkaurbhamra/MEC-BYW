@@ -18,29 +18,23 @@ type Job = {
   accessft: string;
 };
 
+const headers = [
+  "Index",
+  "title",
+  "desc",
+  "salmax",
+  "salmed",
+  "salmin",
+  "payperiod",
+  "type",
+  "location",
+  "explevel",
+  "skills",
+  "accessft",
+];
+
 export default function handler(req: NextApiRequest, res: NextApiResponse<Job>) {
-  // var myParser = parse({ delimiter: "," }, function (data, err) {
-  //   console.log(data);
-  // });
-  // console.log("aaa");
-
   const csvFilePath = path.resolve(__dirname, "../../../../dataset.csv");
-
-  const headers = [
-    "Index",
-    "title",
-    "desc",
-    "salmax",
-    "salmed",
-    "salmin",
-    "payperiod",
-    "type",
-    "location",
-    "explevel",
-    "skills",
-    "accessft",
-  ];
-
   const fileContent = fs.readFileSync(csvFilePath, { encoding: "utf-8" });
 
   parse(

@@ -1,26 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-
-// enum AccessFeatures {
-//   None,
-//   Accessible_Communication,
-//   Accessible_Emergency_Evacuation_Plans,
-//   Accessible_Meetings_and_Events,
-//   Accessible_Rest_Areas,
-//   Accessible_Transportation,
-//   Accessible_Websites_and_Intranet,
-//   Assistance_Animals,
-//   Assistive_Technology,
-//   Braille_and_Large_Print_Materials,
-//   Clear_Communication,
-//   Ergonomic_Workstations,
-//   Feedback_Mechanisms,
-//   Flexible_Work_Arrangements,
-//   Mental_Health_Support,
-//   Mentoring_and_Support_Programs,
-//   Reasonable_Accommodations,
-//   Training_and_Sensitivity_ProgramsAccessible_Facilities,
-// }
+type Data = {
+  list: Object;
+};
 
 const accessFeatures = [
   "None",
@@ -41,24 +23,16 @@ const accessFeatures = [
   "Mental Health Support",
   "Mentoring and Support Programs",
   "Reasonable Accommodations",
-  "Training and Sensitivity Programs"
+  "Training and Sensitivity Programs",
 ];
 
-// const expLevels = [
-//   "Associate",
-//   "Director",
-//   "Entry level",
-//   "Executive",
-//   "Internship",
-//   "Mid-Senior level"
-// ]
-
-export default function handler(req: NextApiRequest, res: NextApiResponse<any>) {
+export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   const jobs = req.body.jobs;
-  const user = req.body.user;
+  // const user = JSON.parse(req.body.user);
   const filteredList = [];
-  console.log(user);
-  
+
+  res.status(200).json({ list: [{ title: "leo cheng" }] });
+  return;
 
   const locationMult = 1.2;
   const experienceMult = 0.8;
@@ -67,41 +41,44 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<any>) 
   const skillMult = 0.8;
   const salaryMult = 0.8;
 
-  
-
   for (const key in jobs) {
     const job = jobs[key];
     var score = 0;
     score += locationMult * getLocationScore(job.location, user.location, user.remote);
-    score += experienceMult * getExperienceScore(job.explevel,user.explevel);
+    score += experienceMult * getExperienceScore(job.explevel, user.explevel);
     score += jobTypeMult * getJobTypeScore(job.type, user.jobtype);
     var jaccessstr = String(job.accessft).split(", ");
     var jaccess = [20];
-    jaccessstr.forEach(ft => {
+    jaccessstr.forEach((ft) => {
       ft.replace(/^ /, "");
       ft.replace(/,$/, "");
       var accessVal = accessFeatures.indexOf(ft);
       if (accessVal > 0) jaccess.push(accessVal);
     });
-    score += accessMult * getAccessibilityScore(jaccess, accessFeatures.indexOf(user.access1), accessFeatures.indexOf(user.access2), accessFeatures.indexOf(user.access3), accessFeatures.indexOf(user.access4));
+    score +=
+      accessMult *
+      getAccessibilityScore(
+        jaccess,
+        accessFeatures.indexOf(user.access1),
+        accessFeatures.indexOf(user.access2),
+        accessFeatures.indexOf(user.access3),
+        accessFeatures.indexOf(user.access4)
+      );
     console.log(job.title);
     console.log(score);
-    
+
     if (score < 0) continue;
     score += skillMult * getSkillScore(job.skills, user.skills);
     var jmed = !(job.salmed === null);
     var jmax = !(job.salmax === null);
     score += salaryMult * getSalaryScore(job.salmax, job.salmin, job.salmed, user.salary, job.payperiod, jmed, jmax);
 
-
     filteredList.push(job);
     if (filteredList.length > 3) break;
   }
 
-  res.status(200).json({list:filteredList});
+  res.status(200).json({ list: filteredList });
 }
-
-
 
 function getLocationScore(joblocation: string, userlocation: string, remote: boolean) {
   if (remote) {
@@ -126,7 +103,7 @@ function getLocationScore(joblocation: string, userlocation: string, remote: boo
 2 - advanced
 3 - expert */
 function getExperienceScore(jobexp: string, userexp: string) {
-  return (jobexp === userexp) ? 10 : -300;
+  return jobexp === userexp ? 10 : -300;
 }
 
 /*
@@ -138,20 +115,20 @@ function getEducationScore(jobed: number, usered: number) {
   if (jobed > usered) {
     return 0;
   }
-  return 10 - 2 *(usered - jobed);
+  return 10 - 2 * (usered - jobed);
 }
 
 function getSkillScore(jobskills: string, userskills: string) {
   var uskillarr = userskills.split(", ");
   var regstr = "";
-  uskillarr.forEach(sk => {
-    regstr += (sk + "|");
+  uskillarr.forEach((sk) => {
+    regstr += sk + "|";
   });
   regstr.slice(0, -1);
   const regex = new RegExp(regstr, "g");
-  var skscore = ((jobskills || '').match(regex) || []).length;
+  var skscore = ((jobskills || "").match(regex) || []).length;
   skscore *= 3;
-  return (skscore > 10) ? 10 : skscore;
+  return skscore > 10 ? 10 : skscore;
 }
 
 /*
@@ -163,16 +140,24 @@ function getSkillScore(jobskills: string, userskills: string) {
 5 - volunteer
 6 - other */
 function getJobTypeScore(jobtype: string, usertype: string) {
-  return (jobtype === usertype) ? 10 : -300;
+  return jobtype === usertype ? 10 : -300;
 }
 
 /*
 0 - year
 1 - month
 2 - hour */
-function getSalaryScore(jobmaxsalary: number, jobminsalary: number, jobmedsalary: number, usersalary: number, jobpayperiod: number, hasmedian: boolean, hasminmax: boolean) {
+function getSalaryScore(
+  jobmaxsalary: number,
+  jobminsalary: number,
+  jobmedsalary: number,
+  usersalary: number,
+  jobpayperiod: number,
+  hasmedian: boolean,
+  hasminmax: boolean
+) {
   if (!hasmedian && !hasminmax) return 0;
-  var jobsalary = hasmedian ? jobmedsalary : ((jobmaxsalary + jobminsalary) / 2);
+  var jobsalary = hasmedian ? jobmedsalary : (jobmaxsalary + jobminsalary) / 2;
   var salscore;
   if (jobpayperiod == 1) {
     jobsalary *= 12;
@@ -181,9 +166,9 @@ function getSalaryScore(jobmaxsalary: number, jobminsalary: number, jobmedsalary
   }
   if (jobsalary == usersalary) return 8;
   if (usersalary > jobsalary) {
-    salscore = (jobsalary - (2*usersalary/3)) * (21/usersalary) + 1;
+    salscore = (jobsalary - (2 * usersalary) / 3) * (21 / usersalary) + 1;
   } else {
-    salscore = (jobsalary - (usersalary/5)) * (5/usersalary) + 4;
+    salscore = (jobsalary - usersalary / 5) * (5 / usersalary) + 4;
   }
   if (salscore < 0) return 0;
   if (salscore > 10) return 10;
@@ -193,7 +178,13 @@ function getSalaryScore(jobmaxsalary: number, jobminsalary: number, jobmedsalary
 /*
 0 - none
 1........ - rest */
-function getAccessibilityScore(jobaccessft: number[], useraccess1: number, useraccess2: number, useraccess3: number, useraccess4: number) {
+function getAccessibilityScore(
+  jobaccessft: number[],
+  useraccess1: number,
+  useraccess2: number,
+  useraccess3: number,
+  useraccess4: number
+) {
   if (useraccess1 == 0) return 10;
   var uaccess = [useraccess1, useraccess2, useraccess3, useraccess4];
   for (let i = 0; i < 4; i++) {

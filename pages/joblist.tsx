@@ -31,13 +31,21 @@ export default function Home() {
           return text;
         });
 
-      const userData = await fetch(`api/getFilteredList`, {
+      console.log(dataset);
+      await fetch(`api/getFilteredList`, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ jobs: dataset, user: getCookie("user") }),
       })
         .then((res) => res.json())
         .then((json) => {
           setFilteredList(json.list); // SCUFFED
+          console.log("ff", filteredList);
+        })
+        .catch((e) => {
+          console.log("err", e);
         });
     }
 
@@ -53,7 +61,7 @@ export default function Home() {
   };
 
   // Assuming 10 job listings for the placeholder
-  const placeholderJobs = filteredList.map((e, i) => ({
+  const placeholderJobs = filteredList.map((e: any, i) => ({
     title: `Job Title ${e.title}`,
     company: `Company ${e.company}`,
     location: "Location",
@@ -79,6 +87,7 @@ export default function Home() {
           </Card>
         ))}
       </div>
+      <h3 className="flex justify-center mt-8">{filteredList.length == 0 ? "loading..." : ""}</h3>
       <div className="flex justify-center mt-8">
         <div className="flex gap-2">
           <Button variant="outline" onClick={prevPage}>
